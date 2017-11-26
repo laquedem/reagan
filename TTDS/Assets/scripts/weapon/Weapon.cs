@@ -11,6 +11,11 @@ public abstract class Weapon : MonoBehaviour
     public abstract IEnumerator Reload();
 
     public abstract IEnumerator Fire();
+
+    protected void Aim()
+    {
+        transform.LookAt(MousePointerController.MPCinst.transform.position);
+    }
 }
 
 public enum WeaponState

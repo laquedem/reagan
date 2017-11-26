@@ -8,7 +8,7 @@ public class MousePointerController : MonoBehaviour
 
     private Ray ray;
     private RaycastHit hit;
-    public LayerMask mask;
+    // public LayerMask mask;
 
     private void Awake()
     {
@@ -19,9 +19,9 @@ public class MousePointerController : MonoBehaviour
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, 100f, mask))
+        if (Physics.Raycast(ray, out hit, 100f/*, mask*/))
         {
-            transform.position = hit.point - new Vector3(0, hit.point.y, 0);
+            transform.position = hit.point;
         }
 	}
 }
