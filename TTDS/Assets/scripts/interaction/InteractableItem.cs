@@ -8,7 +8,7 @@ public class InteractableItem : Interactable
 
     protected override void Interact(Collider player)
     {
-        Inventory inventory = player.GetComponent<Inventory>();
+        InventoryCS inventory = player.GetComponent<InventoryCS>();
 
         if (inventory != null && inventory.AddItem(item))
         {
