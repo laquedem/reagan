@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateCS : MonoBehaviour {
+public class StateCS : MonoBehaviour
+{
+    private void Update()
+    {
+        // runns all effectors
+    }
+}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+public abstract class Affector
+{
+    public abstract void Run();
 }

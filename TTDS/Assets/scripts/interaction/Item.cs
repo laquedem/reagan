@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+
 #region enums
 public enum Rarity
 {
@@ -33,13 +35,26 @@ public enum MeeleWeaponType
 #endregion
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IComparable
 {
     public new string name;
     public float mass;
     public Rarity rarity;
     public ItemType type;           
     public GameObject physical;     // game object that presents item in real world while it's not equiped
+
+    public int CompareTo(object obj)
+    {
+        try
+        {
+            Item c_item = (Item)obj;
+            return name.CompareTo(c_item.name);
+        }
+        catch (InvalidCastException e)
+        {
+            return 0;
+        }
+    }
 }
 
 public abstract class WeaponItem : Item
