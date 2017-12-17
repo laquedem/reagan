@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryCS : MonoBehaviour
+public partial class InventoryCS : MonoBehaviour
 {
     // list off all items
     public List<Item> inventory = new List<Item>();
@@ -16,6 +16,7 @@ public class InventoryCS : MonoBehaviour
             inventory.Add(item);
             carry += item.mass;
             InventorySorter.Sort(ref inventory, SortingType.mass);
+            UpdateUI();
             return true;
         }
         else return false;
@@ -25,12 +26,6 @@ public class InventoryCS : MonoBehaviour
     {
         Instantiate(item.physical, transform.position + transform.forward * 0.5f, transform.rotation);
         inventory.Remove(item);
-    }
-
-    public void SortInventory()
-    {
-        // sorts inventory in alphabet order
-        inventory.Sort();
     }
 }
 
@@ -42,7 +37,8 @@ public static class InventorySorter
     {
         if ((int)type == 0)
         {
-            list.Sort();
+            list.Sort(delegate (Item item_1, Item item_2)
+            { return item_1.name.CompareTo(item_2.name); });
             return;
         }   // sorting by name
 
@@ -50,6 +46,7 @@ public static class InventorySorter
         {
             list.Sort(delegate (Item item_1, Item item_2)
             { return item_1.mass.CompareTo(item_2.mass); });
+            return;
         }   // sorting by mass
 
         if ((int)type == 2) 
