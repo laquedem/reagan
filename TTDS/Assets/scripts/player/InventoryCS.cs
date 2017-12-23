@@ -14,9 +14,14 @@ public partial class InventoryCS : MonoBehaviour
         if (item.mass + carry <= m_mass)
         {
             inventory.Add(item);
+
             carry += item.mass;
-            InventorySorter.Sort(ref inventory, SortingType.mass);
+
+            inventory.Sort(delegate (Item item_1, Item item_2)
+            { return item_1.name.CompareTo(item_2.name); });
+
             UpdateUI();
+
             return true;
         }
         else return false;
@@ -25,7 +30,12 @@ public partial class InventoryCS : MonoBehaviour
     public void DeleteItem(Item item)
     {
         Instantiate(item.physical, transform.position + transform.forward * 0.5f, transform.rotation);
+
         inventory.Remove(item);
+
+        carry -= item.mass;
+
+        UpdateUI();
     }
 }
 

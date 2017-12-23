@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public partial class InventoryCS : MonoBehaviour
 {
@@ -15,7 +12,6 @@ public partial class InventoryCS : MonoBehaviour
     {
         active = false;
         canvas.gameObject.SetActive(false);
-        
     }
 
     private void Update()
@@ -32,29 +28,39 @@ public partial class InventoryCS : MonoBehaviour
     private void OpenInventory()
     {
         Debug.Log("OPENING INVNTORY");
-        Time.timeScale = 0;    // stopping game
+
+        Time.timeScale = 0;
+
         canvas.gameObject.SetActive(true);
+
         active = true;
     }
 
     private void CloseInventory()
     {
         Debug.Log("CLOSING INVNTORY");
+
         Time.timeScale = 1f;
+
         canvas.gameObject.SetActive(false);
+
         active = false;
     }
 
     private void UpdateUI()
     {
         Debug.Log("UPDATING UI");
+
         ClearUI();
+
         foreach (Item item in inventory)
         {
             GameObject inst = Instantiate(slot_prefab, inv_cont.transform);
             InvSlot inv = inst.GetComponent<InvSlot>();
+            inv.item = item;
             inv.icon = item.icon;
             inv.text.text = item.name;
+            inv.inventory = this;
         }
     }
 
@@ -64,15 +70,6 @@ public partial class InventoryCS : MonoBehaviour
         {
             Debug.Log("DESTROY");
             Destroy(child.gameObject);
-            /*
-            Image img = child.GetComponent<Image>();
-            if (img != null)
-            {
-                Destroy(img);
-                Destroy(child.gameObject);
-            }
-            */
-
         }
     }
 }
